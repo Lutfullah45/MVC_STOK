@@ -1,0 +1,37 @@
+﻿@model MvcStok.Models.Entity.U_Table_1
+
+@{
+    ViewBag.Title = "yeni";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Guncelle", "Ürun", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(i => i.URUNID)
+        @Html.TextBoxFor(i => i.URUNID, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(i => i.URUNAD)
+        @Html.TextBoxFor(i => i.URUNAD, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(i => i.URUNAD)
+        @Html.TextBoxFor(i => i.URUNAD, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(i => i.URUNAD)
+        @Html.TextBoxFor(i => i.URUNAD, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(i => i.URUNAD)
+        @Html.TextBoxFor(i => i.URUNAD, new { @class = "form-control" })
+        <br />
+        @Html.LabelFor(i => i.URUNAD)
+        @Html.TextBoxFor(i => i.URUNAD, new { @class = "form-control" })
+    </div>
+
+    <div>
+        <button class="btn btn-warning">Urun Güncelle</button>
+    </div>
+}
+
+
+
+

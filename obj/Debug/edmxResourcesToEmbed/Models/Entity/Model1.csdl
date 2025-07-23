@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MVCdbStokModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="M_Table_1">
+    <Key>
+      <PropertyRef Name="MUSTERIID" />
+    </Key>
+    <Property Name="MUSTERIID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MUSTERIAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MUSTERISOYAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="SAt_Table_1" Relationship="Self.FK_SAt_Table_1_M_Table_1" FromRole="M_Table_1" ToRole="SAt_Table_1" />
+  </EntityType>
+  <EntityType Name="S_Table_1">
+    <Key>
+      <PropertyRef Name="KATAGORIID" />
+    </Key>
+    <Property Name="KATAGORIID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KATAGORIAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="U_Table_1" Relationship="Self.FK_U_Table_1_S_Table_1" FromRole="S_Table_1" ToRole="U_Table_1" />
+  </EntityType>
+  <EntityType Name="SAt_Table_1">
+    <Key>
+      <PropertyRef Name="SATIID" />
+    </Key>
+    <Property Name="SATIID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="URUN" Type="Int32" />
+    <Property Name="MUSTERI" Type="Int32" />
+    <Property Name="ADET" Type="Byte" />
+    <Property Name="FIYAT" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="M_Table_1" Relationship="Self.FK_SAt_Table_1_M_Table_1" FromRole="SAt_Table_1" ToRole="M_Table_1" />
+    <NavigationProperty Name="U_Table_1" Relationship="Self.FK_SAt_Table_1_U_Table_1" FromRole="SAt_Table_1" ToRole="U_Table_1" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="U_Table_1">
+    <Key>
+      <PropertyRef Name="URUNID" />
+    </Key>
+    <Property Name="URUNID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="URUNAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MARKA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="URUNKATAGORİ" Type="Int16" />
+    <Property Name="FİYAT" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="STOK" Type="Byte" />
+    <NavigationProperty Name="S_Table_1" Relationship="Self.FK_U_Table_1_S_Table_1" FromRole="U_Table_1" ToRole="S_Table_1" />
+    <NavigationProperty Name="SAt_Table_1" Relationship="Self.FK_SAt_Table_1_U_Table_1" FromRole="U_Table_1" ToRole="SAt_Table_1" />
+  </EntityType>
+  <Association Name="FK_SAt_Table_1_M_Table_1">
+    <End Role="M_Table_1" Type="Self.M_Table_1" Multiplicity="0..1" />
+    <End Role="SAt_Table_1" Type="Self.SAt_Table_1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="M_Table_1">
+        <PropertyRef Name="MUSTERIID" />
+      </Principal>
+      <Dependent Role="SAt_Table_1">
+        <PropertyRef Name="MUSTERI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_U_Table_1_S_Table_1">
+    <End Role="S_Table_1" Type="Self.S_Table_1" Multiplicity="0..1" />
+    <End Role="U_Table_1" Type="Self.U_Table_1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="S_Table_1">
+        <PropertyRef Name="KATAGORIID" />
+      </Principal>
+      <Dependent Role="U_Table_1">
+        <PropertyRef Name="URUNKATAGORİ" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SAt_Table_1_U_Table_1">
+    <End Role="U_Table_1" Type="Self.U_Table_1" Multiplicity="0..1" />
+    <End Role="SAt_Table_1" Type="Self.SAt_Table_1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="U_Table_1">
+        <PropertyRef Name="URUNID" />
+      </Principal>
+      <Dependent Role="SAt_Table_1">
+        <PropertyRef Name="URUN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MVCdbStokEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="M_Table_1" EntityType="Self.M_Table_1" />
+    <EntitySet Name="S_Table_1" EntityType="Self.S_Table_1" />
+    <EntitySet Name="SAt_Table_1" EntityType="Self.SAt_Table_1" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="U_Table_1" EntityType="Self.U_Table_1" />
+    <AssociationSet Name="FK_SAt_Table_1_M_Table_1" Association="Self.FK_SAt_Table_1_M_Table_1">
+      <End Role="M_Table_1" EntitySet="M_Table_1" />
+      <End Role="SAt_Table_1" EntitySet="SAt_Table_1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_U_Table_1_S_Table_1" Association="Self.FK_U_Table_1_S_Table_1">
+      <End Role="S_Table_1" EntitySet="S_Table_1" />
+      <End Role="U_Table_1" EntitySet="U_Table_1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SAt_Table_1_U_Table_1" Association="Self.FK_SAt_Table_1_U_Table_1">
+      <End Role="U_Table_1" EntitySet="U_Table_1" />
+      <End Role="SAt_Table_1" EntitySet="SAt_Table_1" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
